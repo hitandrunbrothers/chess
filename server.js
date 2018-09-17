@@ -15,17 +15,6 @@ app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-
-//Fill em in ^^
-app.use('/', express.static(path.join(__dirname, '..','/client/build')));
-
-app.use(express.static(path.join(__dirname, '..', 'public')))
-
-//sends index.html
-app.use('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'client/public/index.html'))
-})
-
 // error handling middleware
 app.use((err, req, res, next) => {
   console.error(err);
