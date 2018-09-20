@@ -1,15 +1,17 @@
 const AWS = require("aws-sdk");
 const uuid = require("uuid/v4");
 const { dynamo: { TableName, config } } = require("../config.json");
-
+const Game = require("../model/game");
 const createGame = () => {
     AWS.config.update(config);
+    const game = new Game()
 
     const docClient = new AWS.DynamoDB.DocumentClient();
     const params = {
         TableName,
         Item: {
-            gameId: uuid()
+            gameId: uuid(),
+            board: game.convertForDynamo()
         }
     };
 
@@ -27,7 +29,6 @@ const getGame = (gameId, res) => {
 
     AWS.config.update(config);
     const docClient = new AWS.DynamoDB.DocumentClient();
-
     const params = {
         TableName,
         Key: {
